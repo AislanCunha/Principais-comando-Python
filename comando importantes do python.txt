@@ -1,0 +1,95 @@
+import pandas as pd # comando para importar o conjunto de dados;
+
+df = pd.read.csv('caminho.csv') #importar o dataframe;
+df = pd.read.csv('caminho.csv', error_bad_lines=False, sep=';') #o comando error_bad_lines (cancela os possiveis erros encontrados na planilha), sep=''(altera o separador da planilha para ";";
+df = pd.read.excel('caminho.xlsx') #importar o datafram no formato de excel;
+
+
+df.head() # verifica as cinco primeiras linhas da planilha;
+
+df.rename(columns={'nome da coluna': 'o novo nome da coluna'})
+
+df.shape() # verifica o total de linhas e colunas na planilha;
+
+df.columns() #seleciona o nome das colunas;
+
+df.dtypes() #demonstra o tipo de dados;
+
+df.tail() #demonstra as últimas linhas da planilha;
+
+df.describe() #descreve os valores da média, mediana, quartis, máximo e mínimo;
+
+df['continente'].unique() #verifica os dados dentro da coluna continente
+
+oceania = df.loc[df["continente"] == oceania] # seleciona dentro da coluna continente os dados de oceania;
+
+df.groupby("continente")["pais"].nunique() # faz a contagem dentro da coluna e retorna a quantidade dentro coluna;
+
+df.groupby("ano")["expectativa de vida"].mean();
+
+df["pib"].mean() #obtem a média da coluna pib.
+
+df = pd.concat([df1, df2, df3, df4, df5]) #junta o conjunto de diferentes planilhas;
+
+df.sample(6) # seleciona o número de amostras dentro do meu conjunto de dados;
+
+df["lojaID"] = df["lojaID"].astype("object") #faz mudança do tipo de dados da coluna selecionada;
+
+df.isnull().sum() #verifica os valores faltantes;
+
+df["vendas"].fillna(df["vendas"].mean(), inpace=True) #substitue os valores faltantes pela média da coluna;
+
+df["vendas"].fillna(0, inpace=True) #substitue os valores por zero;
+
+df.dropna(inplace=True) #apaga os valores nulos;
+
+df.dropna(subset=["vendas"], inplace=True) #apaga valores nulos em mais de uma coluna e deleta os valores da coluna selecionada;
+
+df.dropna(how "all", inplace=True)#apaga todos os valores faltantes;
+
+df["receita"] = df["vendas"].mul(df["Qtde"]) #acrescentar novas colunas;
+
+df["Receita/vendas"] = df["receita"]/df["vendas"] #acrescenta nova coluna dividindo valores de colunas;
+
+df.nlargest(3, "receita") #seleciona os três melhores dentro da coluna selecionada;
+
+df.nsmallest(3, "receita") # seleciona os três piores dentro da coluna selecionada;
+
+df.groupby("cidade")["receita"].sum() #agrupa a soma da receita por cidade;
+
+df.sort_values("receita", ascending=False).head(10) #organiza os valores de ordem crescente;
+
+###TRABALHANDO COM DATAS###
+
+df["data"] = df["data"].astype("int64") #transforma dados para int
+
+df["data"] = pd.to_datetime(df["data"]) #transformando os dados para o formato de datetime;
+
+df.groupby(df["data"].dt.year)["receita"].sum() #verificar a recita por ano;
+
+df["ano_venda"] = df["data"].dt.year #criando uma coluna com ano de venda;
+
+df["mes_venda"], df["dia_venda"] = (df["data"].dt.month, df["data"].dt.day) #selecionar o dia e o mês da venda;
+
+df["diferença_dias"] = df["data"] - df["data"].min() #verificar a diferença de dias 
+
+df["semestre_venda"] = df["data"].dt.quarter #selecionar o semestre;
+
+venda_maco_19 = df.loc[(df["data"].dt.year == 2019) & (df["data"].dt.month == 3)] #filtrar as vendas do ano e todos do mês três;
+
+####VIZUALIZÇÃO DOS DADOS####
+
+df["lojaID"].value_counts(ascending=False) #faz contagem dos valores e organiza em ordem crescente;
+df["lojaID"].value_counts(ascending=False) #faz contagem dos valores e organiza em ordem crescente com o gráfico com barra vertical;
+df["lojaID"].value_counts(ascending=False) #faz contagem dos valores e organiza em ordem crescente com o gráfico com barra horizontal;
+
+df.groupby(df["data"].dt.year)["receita"].sum().plot.pie() #gráfico de pizza;
+
+import matplotlib.pyplot as plt
+df["cidade"].value_counts().plot.bar(title ="total vendas por cidades", color="red")
+plt.xlabel("cidades")
+plt.ylabel("total vendas");
+
+plt.hist(df["Qtde"], color="margenta");
+plt.scatter(x=df_2019["dia_venda"], y=df_2019["receita"]);
+
